@@ -1,0 +1,37 @@
+export enum ExpenseCategory {
+  GROCERIES = 1,
+  BILLS,
+  FUEL,
+  FOOD,
+  DIET,
+  TRANSPORT,
+  HEALTHCARE,
+  EDUCATION,
+  ENTERTAINMENT,
+  SHOPPING,
+  SUBSCRIPTIONS,
+  EMI,
+  INVESTMENTS,
+  LENDING,
+  HELPING_HAND,
+  OTHERS,
+}
+
+export const ExpenseCategoryDisplayNames: Record<ExpenseCategory, string> = {
+  [ExpenseCategory.GROCERIES]: "Groceries",
+  [ExpenseCategory.BILLS]: "Utility Bills",
+  [ExpenseCategory.FUEL]: "Fuel",
+  [ExpenseCategory.FOOD]: "Food & Dining",
+  [ExpenseCategory.DIET]: "Diet",
+  [ExpenseCategory.TRANSPORT]: "Transport & Travel",
+  [ExpenseCategory.HEALTHCARE]: "Healthcare & Medical",
+  [ExpenseCategory.EDUCATION]: "Education & Learning",
+  [ExpenseCategory.ENTERTAINMENT]: "Entertainment",
+  [ExpenseCategory.SHOPPING]: "Shopping",
+  [ExpenseCategory.SUBSCRIPTIONS]: "Subscriptions & Memberships",
+  [ExpenseCategory.EMI]: "EMI",
+  [ExpenseCategory.LENDING]: "Lending Money to others",
+  [ExpenseCategory.HELPING_HAND]: "Helping hand",
+  [ExpenseCategory.OTHERS]: "Other Expenses",
+  [ExpenseCategory.INVESTMENTS]: "Investments & Planning"
+};
