@@ -11,14 +11,14 @@ const router = express.Router();
 router.get(
   "/google/callback",
   passport.authenticate("google", { failureRedirect: "http://localhost:5173/login" }),
-  (req, res) => {
-    const token = jwt.sign({ id: req.user.id }, process.env.JWT_SECRET, { expiresIn: "1d" });
+  (req: any, res: any) => {
+    const token = jwt.sign({ id: req.user.id }, process.env.JWT_SECRET as string, { expiresIn: "1d" });
     res.redirect(`http://localhost:5173/dashboard?token=${token}`);
   }
 );
 
 // Logout Route
-router.get("/logout", (req, res) => {
+router.get("/logout", (req: any, res) => {
   req.logout();
   res.redirect("http://localhost:5173");
 });

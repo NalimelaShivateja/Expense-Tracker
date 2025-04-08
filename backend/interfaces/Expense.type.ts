@@ -1,10 +1,10 @@
 import { Date, Document, ObjectId } from "mongoose"
-import { PaymentMethod } from "../enums/paymentMethod.enum"
-import { ExpenseCategory } from "../enums/expenseCategory.enum"
-import { ExpenseSubCategory } from "../enums/ExpenseSubCategory.enum"
+import { PaymentMethod } from "../enums/PaymentMethod.enum"
 import { PaymentType } from "../enums/PaymentType.enum"
 import { RecurringFrequency } from "../enums/RecurringFrequencyType.enum"
-import { IUser } from "./user.type"
+import { IUser } from "./User.type"
+import { IExpenseCategory } from "./ExpenseCategory.type"
+import { IExpenseSubCategory } from "./ExpenseSubCategory.type"
 
 export interface IExpense extends Document {
     userId: ObjectId | IUser
@@ -12,8 +12,8 @@ export interface IExpense extends Document {
     day: Date,
     type: PaymentType,
     paymentMethod: PaymentMethod,
-    category: ExpenseCategory,
-    subCategory: ExpenseSubCategory,
+    category: ObjectId | IExpenseCategory,
+    subCategory: ObjectId | IExpenseSubCategory,
     isRecurring?: Boolean,
     recurringFrequency?: RecurringFrequency,
     comments?: string,

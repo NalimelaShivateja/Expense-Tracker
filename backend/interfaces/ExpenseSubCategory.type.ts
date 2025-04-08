@@ -1,10 +1,11 @@
-import { ObjectId } from "mongoose"
+import { ObjectId, Document } from "mongoose"
 import { IExpenseCategory } from "./ExpenseCategory.type"
-import { IUser } from "./user.type"
+import { IUser } from "./User.type"
 
 export interface IExpenseSubCategory extends Document {
     name: string,
     icon?: string,
-    category?: IExpenseCategory
-    userId?: ObjectId | IUser
+    userId?: ObjectId | IUser,
+    createdAt: Date,
+    updatedAt: Date
 }
