@@ -30,7 +30,7 @@ const seedCategories = async () => {
         await ExpenseCategoryModel.insertMany(categories);
 
         console.log("✅ Categories Seeded!");
-        process.exit(); // Exit the script
+        // process.exit(); // Exit the script
     } catch (error) {
         console.error("Seeding Failed:", error);
         process.exit(1);

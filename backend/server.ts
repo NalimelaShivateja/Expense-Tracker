@@ -6,6 +6,7 @@ import express from "express"
 import connectDB from "./config/db";
 import authRoutes from "./routes/authRoutes";
 import profileRoutes from "./routes/profileRoutes";
+import expenseRouter from "./routes/expenseRoutes";
 // require("./passportConfig");
 
 // "allowImportingTsExtensions": true   
@@ -27,8 +28,10 @@ const app = express();
 // app.use(passport.session());
 
 // Routes
+app.use(express.json())
 app.use("/api/auth", authRoutes);
 app.use("/api/profile", profileRoutes);
+app.use("/api/expense/", expenseRouter)
 
 // Google OAuth Callback
 // app.get(
@@ -40,7 +43,6 @@ app.use("/api/profile", profileRoutes);
 //     }
 // );
 
-// Connect MongoDB
 connectDB();
 
 app.listen(5000, () => console.log("Server running on port 5000"));
