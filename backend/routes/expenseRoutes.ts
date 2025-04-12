@@ -4,7 +4,7 @@ import express, { Request, Response } from "express";
 
 const expenseRouter = express.Router()
 
-expenseRouter.post("new", async (req: Request, res: Response) => {
+expenseRouter.post("/new", async (req: Request, res: Response) => {
     try {
         const newExpense = new ExpenseModel({ ...req.body })
         const savedExpense = await newExpense.save()
@@ -16,8 +16,7 @@ expenseRouter.post("new", async (req: Request, res: Response) => {
     }
 })
 
-expenseRouter.post("all", async (req: Request<{}, {}, ExpenseFilter>, res: Response) => {
-    const filter = {} as ExpenseFilter;
+expenseRouter.post("/all", async (req: Request<{}, {}, ExpenseFilter>, res: Response) => {
     const { amount,
         startDate,
         endDate,
@@ -27,12 +26,24 @@ expenseRouter.post("all", async (req: Request<{}, {}, ExpenseFilter>, res: Respo
         subCategory,
         comments } = req.body;
 
-    if (amount !== undefined) {
-        filter.amount= amount
-    }
+    const filter: Record<string, any> = {
+        ...(amount && { amount }),
+        ...(category && { category }),
+        ...(paymentMethod && { paymentMethod }),
+        ...(subCategory && { subCategory }),
+        ...(type && { type }),
+        ...(comments && { $text: { $search: comments } }),
+        ...(startDate && { day: { $gte: new Date(startDate) } }),
+        ...(startDate || endDate && {
+            day: {
+                ...(startDate ? { $gte: new Date(startDate) } : {}),
+                ...(endDate ? { $lte: new Date(endDate) } : {})
+            }
+        })
+    };
 
     try {
-        const expenses = await ExpenseModel.find();
+        const expenses = await ExpenseModel.find(filter);
         res.status(200).json(expenses);
     }
     catch (error) {
@@ -41,7 +52,7 @@ expenseRouter.post("all", async (req: Request<{}, {}, ExpenseFilter>, res: Respo
     }
 })
 
-expenseRouter.put("update/:id", async (req: Request, res: Response) => {
+expenseRouter.put("/update/:id", async (req: Request, res: Response) => {
     const { id } = req.params;
     try {
         const updatedExpense = await ExpenseModel.findByIdAndUpdate(id, { $set: req.body }, { new: true })
@@ -56,7 +67,7 @@ expenseRouter.put("update/:id", async (req: Request, res: Response) => {
     }
 })
 
-expenseRouter.delete(":id", async (req: Request, res: Response) => {
+expenseRouter.delete("/:id", async (req: Request, res: Response) => {
     const { id } = req.params;
     try {
         const deleteExpense = await ExpenseModel.findByIdAndDelete(id)

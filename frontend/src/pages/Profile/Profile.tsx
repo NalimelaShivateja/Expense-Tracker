@@ -1,3 +1,4 @@
+import React from 'react';
 import { useGetUserProfileQuery } from '../../store/api/profile.service'
 
 const Profile = () => {
@@ -7,7 +8,6 @@ const Profile = () => {
 
     return (
         <div>Profile page</div>
-
     )
 }
 

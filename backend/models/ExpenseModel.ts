@@ -21,4 +21,7 @@ const ExpenseModel = generateModel<IExpense>("Expense", {
     attachmentURL: { type: String },
 }, { timestamps: true })
 
+ExpenseModel.schema.index({ comments: "text" });
+ExpenseModel.schema.index({ userId: 1, day: -1 });
+
 export default ExpenseModel;
